@@ -10,7 +10,7 @@ public class BankAccount {
         boolean quit = false;
 
         Scanner scanner = new Scanner(System.in);
-        
+
         do {
             System.out.println("Choose your operation type: ");
             System.out.println("Deposit money - press 1");
@@ -24,15 +24,25 @@ public class BankAccount {
                 case 1:
                     System.out.println("Amount to deposit: ");
                     amount = scanner.nextFloat();
-                    balance = amount + balance;
-                    System.out.println("Your balance: " + balance + "$");
+                    if (amount <= 0) {
+                        System.out.println("Deposit must be more than 0$");
+                    } else {
+                        balance = amount + balance;
+                        System.out.println("You deposited: " + amount + "$");
+                    }
                     break;
                 case 2:
                     System.out.println("Amount to winthdrawl: ");
                     amount = scanner.nextFloat();
-                    balance = amount - balance;
-                    System.out.println("Your balance: " + balance + "$");
-                    break;
+                    if (amount <= 0 || balance <= amount) {
+                        System.out.println("Winthdrawl amount must be more than 0 $ or you hav't " +
+                                "got enought money on your bank account");
+                    } else {
+                        balance = balance - amount;
+                        System.out.println("You winthdrawl: " + balance + "$");
+                        break;
+                    }
+
                 case 3:
                     System.out.println("Your balance: " + balance + "$");
                     break;
@@ -40,7 +50,7 @@ public class BankAccount {
                     quit = true;
                     break;
                 default:
-                    System.out.println();
+                    System.out.println("wrong choice, try again");
                     break;
             }
         } while (!quit);
